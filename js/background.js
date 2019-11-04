@@ -5,12 +5,15 @@ class Background {
         this.height = height;
 
         this.image = new Image();
-        this.image.src = 'img/livingRoom1.png';
+        this.image.src = 'img/livingRoom2.png';
+
+        // this.secondImage = new Image();
+        // this.secondImage.src='img/1x/backArtboard 5.png';
 
         this.posX = 0;
         this.posY = 0;
 
-        this.vx = 3.5;
+        this.vx = 1.5;
     }
 
     draw() {

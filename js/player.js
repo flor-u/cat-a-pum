@@ -7,10 +7,10 @@ class Player {
         this.image = new Image();
         this.image.src = image;
     
-        this.posX = 90;
-        this.posY = gameHeight * 1 - this.height ;
-        this.posY0 = gameHeight * .7 - this.height ;
-        this.vy = 1;
+        this.posX = 60;
+        this.posY = gameHeight * .9- this.height ;
+        this.posY0 = gameHeight * .9 - this.height ;
+        this.vy = 10;
         this.gravity = 0.1;
         this.gameWidth = gameWidth;
     
@@ -63,10 +63,10 @@ class Player {
         document.addEventListener('keydown', (e) => {
           switch(e.keyCode) {
             case this.keys.TOP_KEY:
-              if(this.posY >= this.posY0) {
+              // if(this.posY >= this.posY0) {
                 this.posY -= this.vy;
                 this.vy -= 7;
-              }
+              //  }
               break;
                 // case this.keys.SPACE:
                 //   this.shoot()
