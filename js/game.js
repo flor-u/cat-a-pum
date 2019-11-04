@@ -32,7 +32,9 @@ const Game = {
             this.moveAll();
 
             this.clearObstacles()
-            if (this.framesCounter % 320 === 0) this.generateObstacles()
+            this.clearPrizes();
+            if (this.framesCounter % 420 === 0) this.generateObstacles();
+            if(this.framesCounter % 280 === 0) this.generatePrizes();
             if (this.framesCounter > 1000) this.framesCounter = 0;
         })
     },
@@ -40,7 +42,8 @@ const Game = {
     reset() {
         this.background = new Background(this.ctx, this.width, this.height);
         this.player = new Player(this.ctx, 150, 150, 'img/cat2.png', this.width, this.height, this.playerKeys);
-        this.obstacles= [];
+        this.obstacles = [];
+        this.prizes = [];
     },
 
     clear() {
@@ -51,22 +54,32 @@ const Game = {
         this.background.draw();
         this.player.draw();
         this.obstacles.forEach(obstacle => obstacle.draw());
+        this.prizes.forEach(prize => prize.draw());
     },
 
     moveAll() {
         this.background.move();
         this.player.move();
         this.obstacles.forEach(obstacle => obstacle.move());
+        this.prizes.forEach(prize => prize.move());
     },
 
-    generateObstacles () {
+    generateObstacles() {
         this.obstacles.push(new Obstacle(this.ctx, 50, 50, this.width, this.height))
     },
 
-    clearObstacles () {
+    clearObstacles() {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
-      }
+    },
 
+
+    generatePrizes() {
+        this.prizes.push(new Prize(this.ctx, 50, 50, this.width, this.height))
+    },
+
+    clearPrizes() {
+        this.prizes = this.prizes.filter(prize => (prize.posX >= 0))
+    }
 
 
 

@@ -5,7 +5,7 @@ class Obstacle {
         this.height = height;
 
         this.posX = gameWidth;
-        this.posY = gameHeight * 0.9 - this.height;
+        this.posY = gameHeight * .9 - this.height;
 
         this.vx = 2;
     }
