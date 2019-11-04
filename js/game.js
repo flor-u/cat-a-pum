@@ -43,7 +43,7 @@ const Game = {
 
     reset() {
         this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, 150, 150, 'img/cat2.png', this.width, this.height, this.playerKeys);
+        this.player = new Player(this.ctx, 150, 150, 'img/black-cat-sprite.png', this.width, this.height, this.playerKeys);
         this.obstacles = [];
         this.prizes = [];
     },
@@ -54,7 +54,7 @@ const Game = {
 
     drawAll() {
         this.background.draw();
-        this.player.draw();
+        this.player.draw(this.framesCounter);
         this.obstacles.forEach(obstacle => obstacle.draw());
         this.prizes.forEach(prize => prize.draw());
     },

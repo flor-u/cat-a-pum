@@ -14,7 +14,7 @@ class Player {
         this.gravity = 0.1;
         this.gameWidth = gameWidth;
     
-        this.frames = 1;
+        this.frames = 4;
         this.framesIndex = 0;
     
         this.keys = keys;
@@ -22,7 +22,7 @@ class Player {
         this.setListeners()
       }
 
-      draw(){
+      draw(framesCounter){
         this.ctx.drawImage(
             this.image, 
             this.framesIndex * Math.floor(this.image.width / this.frames),
@@ -37,7 +37,7 @@ class Player {
             // console.log(this.furBalls.length)
             this.clearFurBalls()
             this.furBalls.forEach(ball => ball.draw())
-            // this.animate(framesCounter)
+            this.animate(framesCounter)
         }
       move(){
         if(this.posY <= this.posY0) {
@@ -51,13 +51,13 @@ class Player {
         }
       
 
-    //   animate(framesCounter) {
-    //     if(framesCounter % 10 === 0) {
-    //       this.framesIndex++;
+      animate(framesCounter) {
+        if(framesCounter % 30 === 0) {
+          this.framesIndex++;
     
-    //       if(this.framesIndex > 2) this.framesIndex = 0;
-    //     }
-    //   }
+          if(this.framesIndex > 3) this.framesIndex = 0;
+        }
+      }
     
       setListeners() {
         document.addEventListener('keydown', (e) => {

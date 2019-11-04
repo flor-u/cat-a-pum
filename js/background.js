@@ -5,7 +5,7 @@ class Background {
         this.height = height;
 
         this.image = new Image();
-        this.image.src = 'img/livingRoom2.png';
+        this.image.src = 'img/livingRoom3.png';
 
         // this.secondImage = new Image();
         // this.secondImage.src='img/1x/backArtboard 5.png';

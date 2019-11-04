@@ -10,7 +10,7 @@ class FurBall {
         this.floor = floor;
 
         this.image = new Image();
-        this.image.src = 'img/prize3.png';
+        this.image.src = 'img/fur-ball.png';
 
         this.vx = 7;
         this.vy = 2;
