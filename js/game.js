@@ -33,8 +33,9 @@ const Game = {
 
             this.clearObstacles()
             this.clearPrizes();
-            if (this.framesCounter % 420 === 0) this.generateObstacles();
+            if (this.framesCounter % 700 === 0) this.generateObstacles();
             if(this.framesCounter % 280 === 0) this.generatePrizes();
+            // if (this.isEating()) 
             if(this.isCollision()) this.gameOver()
             if (this.framesCounter > 1000) this.framesCounter = 0;
         })
@@ -83,10 +84,12 @@ const Game = {
     },
 
     isCollision() {
-        // colisiones genéricas
-        // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
         return this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY ))
       },
+
+      isEating(){
+        return this.prizes.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY ))
+    },
 
       gameOver (){
         clearInterval(this.interval)

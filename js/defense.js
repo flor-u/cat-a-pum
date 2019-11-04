@@ -13,7 +13,7 @@ class FurBall {
         this.image.src = 'img/prize3.png';
 
         this.vx = 7;
-        this.vy = 1;
+        this.vy = 2;
         this.gravity = 1;
     }
 

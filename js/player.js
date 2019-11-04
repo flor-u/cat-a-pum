@@ -64,7 +64,7 @@ class Player {
           switch(e.keyCode) {
             case this.keys.TOP_KEY:
               // if(this.posY >= this.posY0) {
-                this.posY -= this.vy;
+                // this.posY -= this.vy;
                 this.vy -= 7;
               //  }
               break;
