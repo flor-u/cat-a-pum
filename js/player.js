@@ -18,7 +18,7 @@ class Player {
         this.framesIndex = 0;
     
         this.keys = keys;
-        // this.bullets = [];
+        this.furBalls = [];
         this.setListeners()
       }
 
@@ -34,9 +34,9 @@ class Player {
             this.width, 
             this.height
             )
-            // console.log(this.bullets.length)
-            // this.clearBullets()
-            // this.bullets.forEach(bullet => bullet.draw())
+            // console.log(this.furBalls.length)
+            this.clearFurBalls()
+            this.furBalls.forEach(ball => ball.draw())
             // this.animate(framesCounter)
         }
       move(){
@@ -47,9 +47,9 @@ class Player {
             this.vy = 1;
             this.posY = this.posY0;
           }
-        //   this.bullets.forEach(bullet => bullet.move())
-        // }
-      }
+          this.furBalls.forEach(ball => ball.move())
+        }
+      
 
     //   animate(framesCounter) {
     //     if(framesCounter % 10 === 0) {
@@ -68,18 +68,17 @@ class Player {
                 this.vy -= 7;
               //  }
               break;
-                // case this.keys.SPACE:
-                //   this.shoot()
+                case this.keys.SPACE:
+                  this.spit()
           }
         })
       }
     
-    //   shoot() {
-    //     this.bullets.push(new Bullet(this.ctx, 10, this.posX, this.posY, this.width, this.height, this.posY0))
-    //   }
+      spit() {
+        this.furBalls.push(new FurBall(this.ctx, 35, 35, this.posX, this.posY, this.width, this.height, this.posY0))
+      }
     
-    //   clearBullets() {
-    //     this.bullets = this.bullets.filter(bullet => bullet.posX <= this.gameWidth)
-    //   }
-    //}
-}
+      clearFurBalls() {
+        this.furBalls = this.furBalls.filter(ball => ball.posX <= this.gameWidth)
+      }
+    }
