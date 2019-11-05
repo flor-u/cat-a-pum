@@ -71,6 +71,7 @@ class Player {
               break;
                 case this.keys.SPACE:
                   this.spit()
+                  
           }
         })
       }

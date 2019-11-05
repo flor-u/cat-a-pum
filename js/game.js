@@ -33,31 +33,54 @@ const Game = {
             this.drawAll();
             this.moveAll();
             this.clearAll();
+            // level 0
+            if (this.level === 0) {
+                if (this.framesCounter % 420 === 0) this.generatePrizes();
 
-            if (this.framesCounter % 300 === 0) this.generatePrizes();
+                if (this.framesCounter % 700 === 0) this.generateObstacles();
 
-            if (this.score < 10 && this.framesCounter % 600 === 0) this.generateObstacles();
+                if (this.isEating()) {
+                    this.prizes.shift();
+                    this.score++;
+                };
 
-            if (this.score > 10 && this.framesCounter % 700 === 0) this.generateEnemy();
+                if (this.isPoop()) {
+                    this.poops.shift();
+                    this.score -= 10;
+                };
 
-            if (this.isEating()) {
-                this.prizes.shift();
-                this.score++;
-            };
-
-            if (this.isPoop()) {
-                this.poops.shift();
-                this.score -= 10;
-            };
-
-            if (this.isHitting()) {
-                this.player.furBalls.shift();
-                this.touches++;
-
-                if (this.touches === 5) {
-                    this.enemy.shift();
-                    this.touches = 0;
+                if (this.score === 10) {
+                    this.level++;
+                    this.score = 0;
+                    //add function to announce new level
                 }
+            }
+
+            
+            //level 1
+            if (this.level === 1) {
+
+                if (this.framesCounter % 340 === 0) this.generatePrizes();
+
+                if (this.framesCounter % 500 === 0) this.generateEnemy();
+
+                if (this.isEating()) {
+                    this.prizes.shift();
+                    this.score ++;
+                };
+
+                if (this.isHitting()) {
+                    this.player.furBalls.shift();
+                    this.touches++;
+                    //this.score -= 5;
+
+                    if (this.touches === 5) {
+                        this.enemy.shift();
+                        this.touches = 0;
+                    }
+                }
+
+                // if (this.score === 10) //function to call you won!
             }
 
             if (this.framesCounter > 1000) this.framesCounter = 0;
@@ -119,7 +142,7 @@ const Game = {
     },
 
     generateEnemy() {
-        this.enemy.push(new Obstacle(this.ctx, 200, 200, 'img/ugly-dog.png', this.width, this.height))
+        this.enemy.push(new Obstacle(this.ctx, 150, 150, 'img/ugly-dog.png', this.width, this.height))
     },
 
     isEnemy() {
