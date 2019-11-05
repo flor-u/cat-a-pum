@@ -10,7 +10,8 @@ const Game = {
         SPACE: 32
     },
     score: 0,
-    touches:0,
+    touches: 0,
+    level: 0,
 
     init() {
         this.canvas = document.getElementById('canvas');
@@ -31,36 +32,37 @@ const Game = {
             this.clear();
             this.drawAll();
             this.moveAll();
+            this.clearAll();
 
-            this.clearObstacles()
-            this.clearPrizes();
-            this.clearEnemy();
+            if (this.framesCounter % 300 === 0) this.generatePrizes();
 
-            if (this.score < 0 && this.framesCounter % 600 === 0) this.generateObstacles();
-            if (this.framesCounter % 280 === 0) this.generatePrizes();
-            if (this.score > 5 && this.framesCounter % 700 === 0) this.generateEnemy();
+            if (this.score < 10 && this.framesCounter % 600 === 0) this.generateObstacles();
+
+            if (this.score > 10 && this.framesCounter % 700 === 0) this.generateEnemy();
 
             if (this.isEating()) {
                 this.prizes.shift();
                 this.score++;
             };
+
             if (this.isPoop()) {
                 this.poops.shift();
                 this.score -= 10;
             };
-            if (this.score < 0 || this.isEnemy()) this.gameOver();
-            if (this.compare()) {
+
+            if (this.isHitting()) {
                 this.player.furBalls.shift();
                 this.touches++;
-                
-                if (this.touches === 5){
-                
-                this.enemy.shift();
-                this.touches = 0;
+
+                if (this.touches === 5) {
+                    this.enemy.shift();
+                    this.touches = 0;
                 }
             }
 
             if (this.framesCounter > 1000) this.framesCounter = 0;
+
+            if (this.score < 0 || this.isEnemy()) this.gameOver();
         })
     },
 
@@ -94,12 +96,14 @@ const Game = {
         this.enemy.forEach(dog => dog.move());
     },
 
-    generateObstacles() {
-        this.poops.push(new Obstacle(this.ctx, 50, 50, 'img/shit.png', this.width, this.height))
+    clearAll() {
+        this.poops = this.poops.filter(obstacle => (obstacle.posX >= 0));
+        this.prizes = this.prizes.filter(prize => (prize.posX >= 0));
+        this.enemy = this.enemy.filter(dog => (dog.posX >= 0))
     },
 
-    clearObstacles() {
-        this.poops = this.poops.filter(obstacle => (obstacle.posX >= 0))
+    generateObstacles() {
+        this.poops.push(new Obstacle(this.ctx, 50, 50, 'img/shit.png', this.width, this.height))
     },
 
     isPoop() {
@@ -110,34 +114,25 @@ const Game = {
         this.prizes.push(new Prize(this.ctx, 50, 50, this.width, this.height))
     },
 
-    clearPrizes() {
-        this.prizes = this.prizes.filter(prize => (prize.posX >= 0))
-    },
-
-
     isEating() {
         return this.prizes.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
     },
 
     generateEnemy() {
-        this.enemy.push(new Obstacle(this.ctx, 200, 200, 'img/ugly-dog.png',this.width, this.height))
+        this.enemy.push(new Obstacle(this.ctx, 200, 200, 'img/ugly-dog.png', this.width, this.height))
     },
-
-    clearEnemy() {
-        this.enemy = this.enemy.filter(dog => (dog.posX >= 0))
-    },
-
 
     isEnemy() {
         return this.enemy.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
     },
+
+    isHitting() {
+        return this.player.furBalls.some(obs => (this.enemy[0].posX + this.enemy[0].width > obs.posX && obs.posX + obs.width > this.enemy[0].posX && this.enemy[0].posY + this.enemy[0].height > obs.posY && obs.posY + obs.height > this.enemy[0].posY))
+    },
+
     gameOver() {
         clearInterval(this.interval)
     },
-    compare() {
-        return this.player.furBalls.some(obs => (this.enemy[0].posX + this.enemy[0].width > obs.posX && obs.posX + obs.width > this.enemy[0].posX && this.enemy[0].posY + this.enemy[0].height > obs.posY && obs.posY + obs.height > this.enemy[0].posY))
-       
-    }
 
 
 
