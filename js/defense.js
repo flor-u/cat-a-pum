@@ -13,8 +13,8 @@ class FurBall {
         this.image.src = 'img/fur-ball.png';
 
         this.vx = 7;
-        this.vy = 2;
-        this.gravity = 1;
+        this.vy = -3;
+        this.gravity = .3;
     }
 
     draw() {
@@ -27,7 +27,7 @@ class FurBall {
         this.vy += this.gravity;
 
         //Accelerate > 1 &&  Decelerate < 1
-        if (this.posY >= this.floor + this.playerHeight) this.vy *= -1
+        if (this.posY >= this.floor + this.playerHeight) this.vy *= -1;
     }
 
 }
