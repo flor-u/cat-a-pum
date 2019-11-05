@@ -56,7 +56,7 @@ const Game = {
                 }
             }
 
-            
+
             //level 1
             if (this.level === 1) {
 
@@ -66,20 +66,21 @@ const Game = {
 
                 if (this.isEating()) {
                     this.prizes.shift();
-                    this.score ++;
+                    this.score++;
                 };
 
-                if (this.isHitting()) {
-                    this.player.furBalls.shift();
-                    this.touches++;
-                    //this.score -= 5;
+                if (this.enemy.length > 0) {
+                    if (this.isHitting()) {
+                        this.player.furBalls.shift();
+                        this.touches++;
+                        //this.score -= 5;
 
-                    if (this.touches === 5) {
-                        this.enemy.shift();
-                        this.touches = 0;
+                        if (this.touches === 5) {
+                            this.enemy.shift();
+                            this.touches = 0;
+                        }
                     }
                 }
-
                 // if (this.score === 10) //function to call you won!
             }
 
