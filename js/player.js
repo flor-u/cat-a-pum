@@ -10,8 +10,9 @@ class Player {
         this.posX = 60;
         this.posY = gameHeight * .9- this.height ;
         this.posY0 = gameHeight * .9 - this.height ;
-        this.vy = 10;
-        this.gravity = 0.1;
+        this.posYTop= gameHeight/2;
+        this.vy = 12;
+        this.gravity = 0.05;
         this.gameWidth = gameWidth;
     
         this.frames = 4;
@@ -63,10 +64,10 @@ class Player {
         document.addEventListener('keydown', (e) => {
           switch(e.keyCode) {
             case this.keys.TOP_KEY:
-              // if(this.posY >= this.posY0) {
-                // this.posY -= this.vy;
+              if(this.posY >= this.posYTop) {
+              this.posY -= this.vy;
                 this.vy -= 7;
-              //  }
+              }
               break;
                 case this.keys.SPACE:
                   this.spit()

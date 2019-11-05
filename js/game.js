@@ -34,18 +34,26 @@ const Game = {
             this.clearObstacles()
             this.clearPrizes();
             if (this.framesCounter % 700 === 0) this.generateObstacles();
-            if(this.framesCounter % 280 === 0) this.generatePrizes();
-            // if (this.isEating()) 
-            if(this.isCollision()) this.gameOver()
+            if (this.framesCounter % 280 === 0) this.generatePrizes();
+            if (this.isEating()) {
+                this.prizes.shift();
+                this.score ++;
+            };
+            if (this.isPoop()){
+                this.poops.shift();
+                 this.score -= 5;
+                };
+            if (this.score < 0) this.gameOver();
             if (this.framesCounter > 1000) this.framesCounter = 0;
         })
     },
 
     reset() {
         this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, 150, 150, 'img/black-cat-sprite.png', this.width, this.height, this.playerKeys);
-        this.obstacles = [];
+        this.player = new Player(this.ctx, 200, 200, 'img/black-cat-sprite.png', this.width, this.height, this.playerKeys);
+        this.poops = [];
         this.prizes = [];
+        ScoreBoard.init(this.ctx, this.score)
     },
 
     clear() {
@@ -55,23 +63,24 @@ const Game = {
     drawAll() {
         this.background.draw();
         this.player.draw(this.framesCounter);
-        this.obstacles.forEach(obstacle => obstacle.draw());
+        this.poops.forEach(obstacle => obstacle.draw());
         this.prizes.forEach(prize => prize.draw());
+        ScoreBoard.draw(this.score)
     },
 
     moveAll() {
         this.background.move();
         this.player.move();
-        this.obstacles.forEach(obstacle => obstacle.move());
+        this.poops.forEach(obstacle => obstacle.move());
         this.prizes.forEach(prize => prize.move());
     },
 
     generateObstacles() {
-        this.obstacles.push(new Obstacle(this.ctx, 50, 50, this.width, this.height))
+        this.poops.push(new Obstacle(this.ctx, 50, 50, this.width, this.height))
     },
 
     clearObstacles() {
-        this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
+        this.poops = this.poops.filter(obstacle => (obstacle.posX >= 0))
     },
 
 
@@ -83,17 +92,21 @@ const Game = {
         this.prizes = this.prizes.filter(prize => (prize.posX >= 0))
     },
 
-    isCollision() {
-        return this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY ))
-      },
+    eatPrize(){
 
-      isEating(){
-        return this.prizes.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY ))
     },
 
-      gameOver (){
+    isPoop() {
+        return this.poops.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+    },
+
+    isEating() {
+        return this.prizes.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+    },
+
+    gameOver() {
         clearInterval(this.interval)
-      }
+    }
 
 
 

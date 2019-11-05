@@ -7,12 +7,14 @@ class Obstacle {
         this.posX = gameWidth;
         this.posY = gameHeight * .9 - this.height;
 
+        this.image = new Image();
+        this.image.src = 'img/shit.png';
+
         this.vx = 2;
     }
 
     draw() {
-        this.ctx.fillStyle = 'black';
-        this.ctx.fillRect(this.posX, this.posY, this.width, this.height);
+        this.ctx.drawImage(this.image, this.posX, this.posY, this.width, this.height)
       }
     
       move() {
