@@ -1,4 +1,18 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+html, body {
     margin: 0;
     padding: 0;
+  }
+
+body {
+    font-family: 'VT323', monospace;
+}
+
+.game-intro{
+    display: block;
+    background-color: blueviolet;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
 }

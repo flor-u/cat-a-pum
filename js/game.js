@@ -14,13 +14,14 @@ const Game = {
     level: 0,
 
     init() {
+        document.querySelector('.game-intro').style.display = "none";
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-
+        
         this.start();
     },
 
@@ -50,6 +51,7 @@ const Game = {
                 };
 
                 if (this.score === 10) {
+                    //nextLevel()
                     this.level++;
                     this.score = 0;
                     //add function to announce new level
@@ -86,7 +88,9 @@ const Game = {
 
             if (this.framesCounter > 1000) this.framesCounter = 0;
 
-            if (this.score < 0 || this.isEnemy()) this.gameOver();
+            if (this.score < 0 || this.isEnemy())
+                this.gameOver();
+
         })
     },
 
@@ -131,7 +135,7 @@ const Game = {
     },
 
     isPoop() {
-        return this.poops.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+        return this.poops.some(obs => (this.player.posX + this.player.width - 35 > obs.posX && obs.posX + obs.width > this.player.posX - 35 && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY - 100))
     },
 
     generatePrizes() {
@@ -143,11 +147,11 @@ const Game = {
     },
 
     generateEnemy() {
-        this.enemy.push(new Obstacle(this.ctx, 150, 150, 'img/ugly-dog.png', this.width, this.height))
+        this.enemy.push(new Obstacle(this.ctx, 200, 200, 'img/ugly-dog.png', this.width, this.height))
     },
 
     isEnemy() {
-        return this.enemy.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+        return this.enemy.some(obs => (this.player.posX + this.player.width - 10 > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY - 80))
     },
 
     isHitting() {
@@ -155,7 +159,9 @@ const Game = {
     },
 
     gameOver() {
-        clearInterval(this.interval)
+        this.ctx.fillStyle = "pink";
+        this.ctx.fillRect(0, 0, this.width, this.height);
+        clearInterval(this.interval);
     },
 
 
