@@ -41,7 +41,7 @@ const Game = {
 
             // level 0
             if (this.level === 0) {
-                if (this.framesCounter % 120 === 0) this.generatePrizes();
+                if (this.framesCounter % 100 === 0) this.generatePrizes();
 
                 if (this.framesCounter % 210 === 0) this.generateObstacles();
 
@@ -63,9 +63,9 @@ const Game = {
             //level 1
             if (this.level === 1) {
 
-                if (this.framesCounter % 130 === 0) this.generatePrizes();
+                if (this.framesCounter % 110 === 0) this.generatePrizes();
 
-                if (this.framesCounter % 250 === 0) this.generateEnemy();
+                if (this.framesCounter % 210 === 0) this.generateEnemy();
 
                 if (this.isEating()) {
                     this.prizes.shift();
@@ -157,11 +157,11 @@ const Game = {
 
     nextLevel() {
         clearInterval(this.interval);
-        this.ctx.fillStyle = "#FF5682";
+        this.ctx.fillStyle = "#FCEE21";
         this.ctx.fillRect(0, 0, this.width, this.height);
         this.ctx.fillStyle = '#1E69FF'
         this.ctx.font = '60px VT323'
-        this.ctx.fillText(`You made it to level 1!`, 150, 230)
+        this.ctx.fillText(`Next Level - GO!`, 150, 230)
         // this.ctx.shadowColor = '#FF5682'
         // this.ctx.shadowOffsetX = -5;
         // this.ctx.shadowOffsetY = 5;

@@ -70,7 +70,7 @@ class Player {
         case this.keys.SPACE:
           if (this.posY >= this.posYTop) {
             this.posY -= this.vy;
-            this.vy -= 15;
+            this.vy -= 10;
           }
           break;
         case this.keys.ARROW_RIGHT:

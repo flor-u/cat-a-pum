@@ -5,7 +5,7 @@ class Prize {
     this.height = height;
 
     this.posX = gameWidth;
-    this.posY = Math.floor(Math.random() * (gameHeight - (gameHeight * .9) + 1) + gameHeight / 2);
+    this.posY = Math.floor(Math.random() * (gameHeight - (gameHeight * .7) + 1) + gameHeight / 2.2);
 
     this.image = new Image();
     this.image.src = 'img/prize3.png';
