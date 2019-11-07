@@ -6,8 +6,8 @@ const Game = {
     fps: 60,
     framesCounter: 0,
     playerKeys: {
-        TOP_KEY: 38,
-        SPACE: 32
+        SPACE: 32,
+        ARROW_RIGHT: 39
     },
     score: 0,
     touches: 0,
@@ -40,9 +40,9 @@ const Game = {
                 this.gameOver();
             // level 0
             if (this.level === 0) {
-                if (this.framesCounter % 280 === 0) this.generatePrizes();
+                if (this.framesCounter % 120 === 0) this.generatePrizes();
 
-                if (this.framesCounter % 200 === 0) this.generateObstacles();
+                if (this.framesCounter % 210 === 0) this.generateObstacles();
 
                 if (this.isEating()) {
                     this.prizes.shift();
@@ -62,9 +62,9 @@ const Game = {
             //level 1
             if (this.level === 1) {
 
-                if (this.framesCounter % 260 === 0) this.generatePrizes();
+                if (this.framesCounter % 130 === 0) this.generatePrizes();
 
-                if (this.framesCounter % 500 === 0) this.generateEnemy();
+                if (this.framesCounter % 250 === 0) this.generateEnemy();
 
                 if (this.isEating()) {
                     this.prizes.shift();
@@ -131,7 +131,7 @@ const Game = {
     },
 
     isPoop() {
-        return this.poops.some(obs => (this.player.posX + this.player.width - 35 > obs.posX && obs.posX + obs.width > this.player.posX - 35 && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY - 100))
+        return this.poops.some(obs => (this.player.posX + this.player.width> obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
     },
 
     generatePrizes() {
@@ -139,7 +139,7 @@ const Game = {
     },
 
     isEating() {
-        return this.prizes.some(obs => (this.player.posX + this.player.width - 50 > obs.posX && obs.posX + obs.width > this.player.posX - 80 && this.player.posY - 50 + this.player.height - 50 > obs.posY && obs.posY + obs.height > this.player.posY - 50))
+        return this.prizes.some(obs => (this.player.posX + this.player.width> obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
     },
 
     generateEnemy() {
@@ -147,7 +147,7 @@ const Game = {
     },
 
     isEnemy() {
-        return this.enemy.some(obs => (this.player.posX + this.player.width - 10 > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY - 80))
+        return this.enemy.some(obs => (this.player.posX + this.player.width> obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
     },
 
     isHitting() {
@@ -197,11 +197,9 @@ const Game = {
         
     }, 1000/60)
 
-    setTimeout(() => {
-            
+    setTimeout(() => {   
     clearInterval(this.animationInterval);
     }, 2000);
-console.log(this.animationInterval);
     },
 
 

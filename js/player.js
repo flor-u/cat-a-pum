@@ -63,13 +63,13 @@ class Player {
   setListeners() {
     document.addEventListener('keydown', (e) => {
       switch (e.keyCode) {
-        case this.keys.TOP_KEY:
+        case this.keys.SPACE:
           if (this.posY >= this.posYTop) {
             this.posY -= this.vy;
             this.vy -= 15;
           }
           break;
-        case this.keys.SPACE:
+        case this.keys.ARROW_RIGHT:
           this.spit()
 
       }
@@ -77,7 +77,7 @@ class Player {
   }
 
   spit() {
-    this.furBalls.push(new FurBall(this.ctx, 35, 35, this.posX, this.posY, this.width, this.height, this.posY0))
+    this.furBalls.push(new FurBall(this.ctx, 20, 20, this.posX, this.posY, this.width, this.height, this.posY0))
   }
 
   clearFurBalls() {
