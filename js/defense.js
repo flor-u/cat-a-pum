@@ -13,8 +13,8 @@ class FurBall {
         this.image.src = 'img/fur-ball.png';
 
         this.vx = 7;
-        this.vy = -3;
-        this.gravity = .3;
+        this.vy = 1;
+        this.gravity = .1;
     }
 
     draw() {

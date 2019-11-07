@@ -17,11 +17,13 @@ const Game = {
         document.querySelector('.game-intro').style.display = "none";
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
+        this.width = 960;
+        this.height = 540;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        
+        this.background = new Background(this.ctx, this.width, this.height);
+        this.player = new Player(this.ctx, 100, 100, 'img/black-cat-sprite.png', this.width, this.height, this.playerKeys);
+
         this.start();
     },
 
@@ -29,16 +31,18 @@ const Game = {
         this.reset();
         this.interval = setInterval(() => {
             this.framesCounter++;
-
             this.clear();
             this.drawAll();
             this.moveAll();
             this.clearAll();
+            if (this.score < 0 || this.isEnemy())
+
+                this.gameOver();
             // level 0
             if (this.level === 0) {
-                if (this.framesCounter % 420 === 0) this.generatePrizes();
+                if (this.framesCounter % 280 === 0) this.generatePrizes();
 
-                if (this.framesCounter % 700 === 0) this.generateObstacles();
+                if (this.framesCounter % 200 === 0) this.generateObstacles();
 
                 if (this.isEating()) {
                     this.prizes.shift();
@@ -50,19 +54,15 @@ const Game = {
                     this.score -= 10;
                 };
 
-                if (this.score === 10) {
-                    //nextLevel()
-                    this.level++;
-                    this.score = 0;
-                    //add function to announce new level
+                if (this.score === 2) {
+                    this.nextLevel();
                 }
             }
-
 
             //level 1
             if (this.level === 1) {
 
-                if (this.framesCounter % 340 === 0) this.generatePrizes();
+                if (this.framesCounter % 260 === 0) this.generatePrizes();
 
                 if (this.framesCounter % 500 === 0) this.generateEnemy();
 
@@ -88,15 +88,11 @@ const Game = {
 
             if (this.framesCounter > 1000) this.framesCounter = 0;
 
-            if (this.score < 0 || this.isEnemy())
-                this.gameOver();
 
-        })
+        }, 1000 / this.fps)
     },
 
     reset() {
-        this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, 200, 200, 'img/black-cat-sprite.png', this.width, this.height, this.playerKeys);
         this.poops = [];
         this.prizes = [];
         this.enemy = [];
@@ -131,7 +127,7 @@ const Game = {
     },
 
     generateObstacles() {
-        this.poops.push(new Obstacle(this.ctx, 50, 50, 'img/shit.png', this.width, this.height))
+        this.poops.push(new Obstacle(this.ctx, 35, 35, 'img/shit.png', this.width, this.height))
     },
 
     isPoop() {
@@ -139,15 +135,15 @@ const Game = {
     },
 
     generatePrizes() {
-        this.prizes.push(new Prize(this.ctx, 50, 50, this.width, this.height))
+        this.prizes.push(new Prize(this.ctx, 35, 35, this.width, this.height))
     },
 
     isEating() {
-        return this.prizes.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+        return this.prizes.some(obs => (this.player.posX + this.player.width - 50 > obs.posX && obs.posX + obs.width > this.player.posX - 80 && this.player.posY - 50 + this.player.height - 50 > obs.posY && obs.posY + obs.height > this.player.posY - 50))
     },
 
     generateEnemy() {
-        this.enemy.push(new Obstacle(this.ctx, 200, 200, 'img/ugly-dog.png', this.width, this.height))
+        this.enemy.push(new Obstacle(this.ctx, 100, 100, 'img/ugly-dog.png', this.width, this.height))
     },
 
     isEnemy() {
@@ -158,10 +154,54 @@ const Game = {
         return this.player.furBalls.some(obs => (this.enemy[0].posX + this.enemy[0].width > obs.posX && obs.posX + obs.width > this.enemy[0].posX && this.enemy[0].posY + this.enemy[0].height > obs.posY && obs.posY + obs.height > this.enemy[0].posY))
     },
 
-    gameOver() {
-        this.ctx.fillStyle = "pink";
-        this.ctx.fillRect(0, 0, this.width, this.height);
+    nextLevel() {
         clearInterval(this.interval);
+        this.ctx.fillStyle = "#FF5682";
+        this.ctx.fillRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = '#1E69FF'
+        this.ctx.font = '60px VT323'
+        this.ctx.fillText(`Level Up!`, 150, 230)
+        // this.ctx.shadowColor = '#FF5682'
+        // this.ctx.shadowOffsetX = -5;
+        // this.ctx.shadowOffsetY = 5;
+        this.level++;
+        
+
+        setTimeout(() => {
+            
+            this.start();
+        }, 2000);
+
+    },
+    gameOver() {
+       clearInterval(this.interval);
+       this.animationCounter=0;
+       this.animationInterval = setInterval(()=>{
+           this.animationCounter++;
+       
+        this.level = 0;
+        this.score = 0;
+
+        this.ctx.fillStyle = "#1E69FF";
+        this.ctx.fillRect(0, 0, this.width, this.height);
+        this.gameOverAnimation = new DeadCat(this.ctx, 200, 200, this.width, this.height);
+        this.gameOverAnimation.draw(this.animationCounter);
+
+
+        this.ctx.fillStyle = '#FCEE21'
+        this.ctx.font = '100px VT323'
+        this.ctx.fillText(`GAME OVER`, 150, 230)
+        this.ctx.shadowColor = '#FF5682'
+        this.ctx.shadowOffsetX = -5;
+        this.ctx.shadowOffsetY = 5;
+        
+    }, 1000/60)
+
+    setTimeout(() => {
+            
+    clearInterval(this.animationInterval);
+    }, 2000);
+console.log(this.animationInterval);
     },
 
 

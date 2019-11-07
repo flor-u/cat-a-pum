@@ -6,7 +6,12 @@ html, body {
   }
 
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'VT323', monospace;
+    height: 100vh; 
+    width: 100vw;
 }
 
 .game-intro{

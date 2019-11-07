@@ -10,7 +10,7 @@ class Prize {
     this.image = new Image();
     this.image.src = 'img/prize3.png';
 
-    this.vx = 2;
+    this.vx = 7;
   }
 
   draw() {

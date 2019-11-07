@@ -10,7 +10,7 @@ class Obstacle {
         this.image = new Image();
         this.image.src = image;
 
-        this.vx = 2;
+        this.vx = 7;
     }
 
     draw() {
