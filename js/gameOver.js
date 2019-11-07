@@ -8,12 +8,14 @@ class DeadCat {
     this.image.src = 'img/dead-cat-sprite.png';
     this.gameWidth = gameWidth;
     this.gameHeight= gameHeight;
-    this.posX = gameWidth/2;
+    this.posX = gameWidth/1.7;
     this.posY = gameHeight * .9 - this.height;
     
 
     this.frames = 5;
     this.framesIndex = 0;
+
+    
 
   }
 
@@ -30,11 +32,12 @@ class DeadCat {
       this.width,
       this.height
     )
+    
 
   }
 
   animate(framesCounter) {
-    if (framesCounter % 30 === 0) {
+    if (framesCounter % 50 === 0) {
       this.framesIndex++;
       if (this.framesIndex > 4) this.framesIndex = 0;
     }

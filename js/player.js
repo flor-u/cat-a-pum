@@ -21,6 +21,9 @@ class Player {
     this.keys = keys;
     this.furBalls = [];
     this.setListeners()
+
+    this.sound = new Audio();
+    this.sound.src = 'sound/chubby-cat-short.mp3';
   }
 
   draw(framesCounter) {
@@ -36,6 +39,7 @@ class Player {
       this.height
     )
     // console.log(this.furBalls.length)
+    this.sound.play()
     this.clearFurBalls()
     this.furBalls.forEach(ball => ball.draw())
     this.animate(framesCounter)

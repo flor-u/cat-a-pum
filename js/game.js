@@ -35,9 +35,10 @@ const Game = {
             this.drawAll();
             this.moveAll();
             this.clearAll();
-            if (this.score < 0 || this.isEnemy())
 
+            if (this.score < 0 || this.isEnemy())
                 this.gameOver();
+
             // level 0
             if (this.level === 0) {
                 if (this.framesCounter % 120 === 0) this.generatePrizes();
@@ -54,7 +55,7 @@ const Game = {
                     this.score -= 10;
                 };
 
-                if (this.score === 2) {
+                if (this.score === 10) {
                     this.nextLevel();
                 }
             }
@@ -75,7 +76,7 @@ const Game = {
                     if (this.isHitting()) {
                         this.player.furBalls.shift();
                         this.touches++;
-                        //this.score -= 5;
+                        this.score --;
 
                         if (this.touches === 5) {
                             this.enemy.shift();
@@ -160,11 +161,13 @@ const Game = {
         this.ctx.fillRect(0, 0, this.width, this.height);
         this.ctx.fillStyle = '#1E69FF'
         this.ctx.font = '60px VT323'
-        this.ctx.fillText(`Level Up!`, 150, 230)
+        this.ctx.fillText(`You made it to level 1!`, 150, 230)
         // this.ctx.shadowColor = '#FF5682'
         // this.ctx.shadowOffsetX = -5;
         // this.ctx.shadowOffsetY = 5;
         this.level++;
+        this.player.sound.pause();
+
         
 
         setTimeout(() => {
@@ -175,6 +178,9 @@ const Game = {
     },
     gameOver() {
        clearInterval(this.interval);
+       this.miau = new Audio();
+    this.miau.src = 'sound/Blastwave_FX_CatMeow_SFXB.203.mp3';
+    this.miau.play()
        this.animationCounter=0;
        this.animationInterval = setInterval(()=>{
            this.animationCounter++;
@@ -194,11 +200,13 @@ const Game = {
         this.ctx.shadowColor = '#FF5682'
         this.ctx.shadowOffsetX = -5;
         this.ctx.shadowOffsetY = 5;
+        this.player.sound.pause();
         
     }, 1000/60)
 
     setTimeout(() => {   
     clearInterval(this.animationInterval);
+    this.miau.pause();
     }, 2000);
     },
 
