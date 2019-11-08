@@ -52,7 +52,7 @@ const Game = {
 
                 if (this.isPoop()) {
                     this.poops.shift();
-                    this.score -= 10;
+                    this.score -= 5;
                 };
 
                 if (this.score === 10) {
