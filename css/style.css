@@ -35,15 +35,15 @@ div{
   margin-bottom: 3rem;
 }
 h1{
-font-size: 4rem;
+font-size: 2.6rem;
 }
 
 h2 {
-  font-size: 3.6rem;
+  font-size: 2rem;
 }
 
 p{
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
 }
 #start-button {
@@ -51,10 +51,11 @@ p{
     background-color: transparent;
     background-repeat: no-repeat; 
     background-position: 0px 0px;      
-    height: 10rem;
-    width: 20rem;
+    height: 6.6rem;
+    width: 15rem;
     cursor: pointer;
     border: none;
+    text-align: center;
     
   
   }
