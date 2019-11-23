@@ -12,8 +12,9 @@ https://flor-u.github.io/cat-a-pum/
 
 ### Game controls
 
-**Space Bar** Jump to catch treats and avoid obstacles
-**Rigth-Arrow >** Spit fur balls to eliminate dogs
+**Space Bar** Jump to catch treats and avoid obstacles.
+
+**Rigth-Arrow >** Spit fur balls to eliminate dogs.
 
 
 
