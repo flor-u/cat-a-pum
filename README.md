@@ -5,6 +5,9 @@ You are a home cat , and, since your humans are out, you can have some fun!
 Run around eating all the treats you can, but be careful not to step in one of your many arch-enemys' " droppings". 
 In level 2, you get to confront them, armed with your fur balls to get rid of them! 
 
+**Play it here:**
+https://flor-u.github.io/cat-a-pum/
+
 
 
 ### Game controls
